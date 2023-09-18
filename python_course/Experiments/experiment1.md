@@ -2,11 +2,11 @@
 
 班级： 21计科1
 
-学号： 202302200000
+学号： 20190202222
 
-姓名： 张三
+姓名： 陈乐
 
-Github地址：<https://github.com/yourusername/python_course>
+Github地址：<https://github.com/lechen20/python_course>
 
 ---
 
@@ -94,6 +94,77 @@ git status
 git commit -m "first commit"
 ```
 
+Introduction Sequence
+1.Git Commit
+
+```bash
+git commit           #创建新的提交记录
+git commit
+```
+
+2.Git Branch
+
+```bash
+git branch bugFix    #创建新的分支
+git checkout bugFix  #切换到这个分支
+```
+
+3.Git Merge
+
+```bash
+git branch bugFix    #创建一个新的名字叫bugFix分支
+git checkout bugFix  #切换到这个分支
+git commit           #提交一次
+git checkout main    #切换回到main分支
+git commit           #提交一次
+git merge bugFix     #合并分支
+```
+
+4.Git rebase
+
+```bash
+git branch bugFix    #创建一个新的名字叫bugFix分支
+git checkout bugFix  #切换到这个分支
+git commit           #提交一次
+git checkout main    #切换回到main分支
+git commit           #提交一次
+git checkout bugFix  #切换到这个分支
+git rebase main      #合并分支
+```
+
+Ramping Up
+1.分离HEAD
+
+```bash
+git checkout C4     #由HEAD->main->C4，变成HEAD->C4
+```
+
+2.相对引用^
+
+```bash
+git checkout C4^     #向上移动一个提交记录
+```
+
+3.相对引用2~（可强制移动分支）
+
+```bash
+git branch -f bugFix HEAD~2  #将bugFix分支强制指向HEAD的第2级父提交
+git branch -f main C6        #将main分支强制指向C6
+git checkout HEAD^           #切换到HEAD的上一个提交记录
+```
+
+4.撤销变更
+
+```bash
+git reset HEAD~1       #退回上一个(删去C2，保留C1)——本地分支
+git checkout pushed    #切换到这个分支
+git revert HEAD        #引入C2'相当于C1的状态——远程分支
+
+```
+
+
+
+
 如果是Python代码，应该使用下面代码块格式，例如：
 
 ![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
@@ -123,3 +194,13 @@ def add_binary(a,b):
 ## 实验总结
 
 总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。
+
+1.Git 基础
+初步学习使用git进行版本控制，了解到版本控制是一种可以记录文件或代码在不同时间点的变化，并且能够追踪、管理和恢复这些变化的系统，还了解到Git作为一种分布式版本控制系统，具有强大的分支管理、高效的性能、完整的历史记录和强大的冲突解决功能。
+通过学习和闯关：
+基础：git commit、git branch、git merge、git rebase
+高级：分离HEAD、相对引用^、相对引用2~（可强制移动分支）、撤销变更
+实操学习，使我更加形象的理解一些基础命令，为我接下来熟练使用git和代码管理打下良好的基础。例如分支管理：Git的分支管理功能非常强大，学习Git基础命令后，您可以使用git branch命令创建和查看分支，使用git checkout命令切换分支，使用git merge命令合并分支；版本回退：可以使用git reset命令回退到之前的版本，这样可以轻松地查看代码的演变过程，比较不同版本之间的差异，并且可以回滚到之前的版本。除此之外还有git revert用于撤销某次提交的修改，它会创建一个新的提交，将之前提交的修改撤销掉，这个新的提交会保留之前提交的历史记录，因此可以避免历史记录的混乱等等还有非常多且能够提供效率的命令，是需要我接下来继续学习的。
+
+2.Markdown基础
+虽然是初次学习和使用Markdown，但已经感受到它的简洁易读易写的特点了，在初次使用过程中，因为不够熟练，还是需要查使用资料，不过我相信经过持续的使用，Markdown会成为我之后常用的文本编辑语言，我会继续探寻它的优点和功能。
