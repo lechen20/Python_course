@@ -95,7 +95,7 @@ git commit -m "first commit"
 ```
 
 Introduction Sequence
-1.Git Commit
+1. Git Commit
 
 ```bash
 git commit           #创建新的提交记录
