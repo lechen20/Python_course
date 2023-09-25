@@ -2,13 +2,13 @@
 
 班级： 21计科1班
 
-学号： 202302200000
+学号： 20190202222
 
-姓名： 张三
+姓名： 陈乐
 
-Github地址：<https://github.com/yourusername/python_course>
+Github地址：<https://github.com/lechen20/python_course>
 
-CodeWars地址：<https://www.codewars.com/users/yourusername>
+CodeWars地址：<https://www.codewars.com/users/lechen20>
 
 ---
 
@@ -122,16 +122,7 @@ Python变量、简单数据类型和列表简介
 
 ![程序流程图](/Experiments/img/2023-08-05-22-00-00.png)
 
-显示效果如下：
 
-```mermaid
-flowchart LR
-    A[Start] --> B{Is it?}
-    B -->|Yes| C[OK]
-    C --> D[Rethink]
-    D --> B
-    B ---->|No| E[End]
-```
 
 查看Mermaid流程图语法-->[点击这里](https://mermaid.js.org/syntax/flowchart.html)
 
@@ -142,32 +133,85 @@ flowchart LR
 请将实验过程与结果放在这里，包括：
 
 - [第二部分 Python变量、简单数据类型和列表简介](#第二部分)
-- [第三部分 Codewars Kata挑战](#第三部分)
-- [第四部分 使用Mermaid绘制程序流程图](#第四部分)
+
+
+
+
+- [第三部分 Codewars Kata挑战](#第三部分)  
+第1题：求离整数n最近的平方数（Find Nearest square number） 
+
+```bash
+
+```  
+
+第2题：弹跳的球（Bouncing Balls）  
+
+```bash
+def bouncing_ball(h, bounce, window):
+    # your code
+    if(h<=0 or bounce<=0 or bounce>=1 or window>=h):
+        return -1
+    count=1
+    m=h*bounce
+    while m>window :
+        m*=bounce
+        count+=2
+    return count
+```
+
+第3题： 元音统计(Vowel Count)   
+
+```bash
+def get_count(sentence):
+    count=0
+    for n in sentence:
+        if n=='a' or n=='e' or n=='i' or n=='o' or n=='u':
+            count+=1
+    return count
+```
+
+第4题：偶数或者奇数（Even or Odd）  
+
+```bash
+def even_or_odd(number):
+    if number%2==0:
+        return "Even"
+    else:
+        return "Odd"
+```
+
+- [第四部分 使用Mermaid绘制程序流程图](#第四部分)     
+
+  1. 元音统计(Vowel Count)  
+
+```mermaid
+flowchart LR
+A[Start] --> B[初始化count=0]
+B--> C[遍历sentence中的每个字符n]
+C--> D{判断 n=='a' or n=='e' or n=='i' or n=='o' or n=='u}
+D-->|Yes| E[count+=1]
+D-->|No| C
+C-->|遍历结束| F[返回count]
+F--> G[End]
+
+```
+  
+2. 偶数或者奇数（Even or Odd）  
+
+```mermaid  
+flowchart LR
+    A[Start] --> B{输入一个数字number}
+    B--> C{判断number%2==0}
+    C-->|Yes| D[返回'Even']
+    C-->|No| E[返回'Odd']
+    D-->F[End]
+    E-->F
+```
 
 注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
 
 ![Git命令](/Experiments/img/2023-07-26-22-48.png)
 
-显示效果如下：
-
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
-```
-
-如果是Python代码，应该使用下面代码块格式，例如：
-
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
-
-显示效果如下：
-
-```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
-```
 
 代码运行结果的文本可以直接粘贴在这里。
 
