@@ -190,7 +190,22 @@ def even_or_odd(number):
 
 - [第四部分 使用Mermaid绘制程序流程图](#第四部分)     
 
-1. 元音统计(Vowel Count)  
+1. 求离整数n最近的平方数（Find Nearest square number）  
+   
+```mermaid  
+ flowchart LR
+A[Start] --> B[输入一个数字n]
+B --> C[计算num= int(n ** 0.5)]
+C --> D[计算num1 = num ** 2]
+C --> E[计算num2 = (num + 1) ** 2]
+E --> F[判断num2 - n<n - num1]
+F --> |Yes| G[返回num2]
+F --> |No| H[返回num1]
+G --> I[结束]
+H --> I
+
+```
+2. 元音统计(Vowel Count)  
 
 ```mermaid
 flowchart LR
@@ -204,7 +219,7 @@ F--> G[End]
 
 ```
   
-2. 偶数或者奇数（Even or Odd）  
+3. 偶数或者奇数（Even or Odd）  
 
 ```mermaid  
 flowchart LR
