@@ -137,7 +137,8 @@ Python变量、简单数据类型和列表简介
 
 
 
-- [第三部分 Codewars Kata挑战](#第三部分)  
+- [第三部分 Codewars Kata挑战](#第三部分)   
+  
 第1题：求离整数n最近的平方数（Find Nearest square number） 
 
 ```bash
@@ -190,10 +191,10 @@ def even_or_odd(number):
 
 - [第四部分 使用Mermaid绘制程序流程图](#第四部分)     
 
-1. 求离整数n最近的平方数（Find Nearest square number）  
-   
+1. 求离整数n最近的平方数（Find Nearest square number）   
+
 ```mermaid  
- flowchart LR
+flowchart LR
 A[Start] --> B[输入一个数字n]
 B --> C[计算num= int(n ** 0.5)]
 C --> D[计算num1 = num ** 2]
@@ -204,7 +205,8 @@ F --> |No| H[返回num1]
 G --> I[结束]
 H --> I
 
-```
+```  
+
 2. 元音统计(Vowel Count)  
 
 ```mermaid
