@@ -64,20 +64,9 @@ git pull
 ### 第三部分 learngitbranching.js.org
 
 访问[learngitbranching.js.org](https://learngitbranching.js.org)，如下图所示完成Main部分的Introduction Sequence和Ramping Up两个小节的学习。
-
-![Learngitbranching.js.org](/Experiments/img/2023-07-28-21-07-40.png)
-
-上面你学习到的git命令基本上可以应付百分之九十以上的日常使用，如果你想继续深入学习git，可以：
-
-- 继续学习[learngitbranching.js.org](https://learngitbranching.js.org)后面的几个小节（包括Main和Remote）
-- 在日常的开发中使用git来管理你的代码和文档，用得越多，记得越牢
-- 在git使用过程中，如果遇到任何问题，例如：错误删除了某个分支、从错误的分支拉取了内容等等，请查询[git-flight-rules](https://github.com/k88hudson/git-flight-rules)
-
 ### 第四部分 Markdown基础
 
 查看[Markdown cheat-sheet](http://www.markdownguide.org/cheat-sheet)，学习Markdown的基础语法
-
-使用Markdown编辑器（例如VScode）编写本次实验的实验报告，包括[实验过程与结果](#实验过程与结果)、[实验考查](#实验考查)和[实验总结](#实验总结)，并将其导出为 **PDF格式** 来提交。
 
 ## 实验过程与结果
 
