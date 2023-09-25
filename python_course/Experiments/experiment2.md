@@ -196,16 +196,14 @@ def even_or_odd(number):
 ```mermaid  
 flowchart LR
 A[开始] --> B[输入一个数字n]
-B --> C[计算num= int(n ** 0.5)]
-C --> D[计算num1 = num ** 2]
-C --> E[计算num2 = (num + 1) ** 2]
+B --> C[计算n的平方根并取整得到num]
+C --> D[计算num的平方得到num1]
+C --> E[计算num+1的平方得到num2]
 E --> F[判断num2 - n是否小于n - num1]
 F --> |是| G[返回num2]
 F --> |否| H[返回num1]
 G --> I[结束]
 H --> I
-I[结束]
-
 
 ```  
 
