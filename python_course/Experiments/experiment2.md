@@ -141,7 +141,15 @@ Python变量、简单数据类型和列表简介
 第1题：求离整数n最近的平方数（Find Nearest square number） 
 
 ```bash
+def nearest_sq(n):
+    num= int(n ** 0.5)
+    num1 = num ** 2
+    num2 = (num + 1) ** 2
 
+    if num2 - n < n - num1:
+        return num2
+    else:
+        return num1
 ```  
 
 第2题：弹跳的球（Bouncing Balls）  
@@ -182,7 +190,7 @@ def even_or_odd(number):
 
 - [第四部分 使用Mermaid绘制程序流程图](#第四部分)     
 
-  1. 元音统计(Vowel Count)  
+1. 元音统计(Vowel Count)  
 
 ```mermaid
 flowchart LR
