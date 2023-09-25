@@ -35,7 +35,7 @@ git clone https://github.com/zhoujing204/python_course.git
 如果你在使用`git clone`命令时遇到SSL错误，请运行下面的git命令(这里假设你的Git使用了默认安装目录)：
 
 ```bash
-git config --global http.sslCAInfo C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt
+git config --global http.sslCAInfo "C:/Program Files/Git/mingw64/ssl/certs/ca-bundle.crt"
 ```
 
 该仓库的课程材料后续会有更新，如果需要更新课程材料，可以在本地课程仓库的目录下运行下面的命令：
@@ -80,19 +80,6 @@ git pull
 使用Markdown编辑器（例如VScode）编写本次实验的实验报告，包括[实验过程与结果](#实验过程与结果)、[实验考查](#实验考查)和[实验总结](#实验总结)，并将其导出为 **PDF格式** 来提交。
 
 ## 实验过程与结果
-
-请将实验过程中编写的代码和运行结果放在这里，注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
-
-![Git命令](/Experiments/img/2023-07-26-22-48.png)
-
-显示效果如下：
-
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
-```
 
 Introduction Sequence
 1. Git Commit
@@ -163,29 +150,11 @@ git revert HEAD        #引入C2'相当于C1的状态——远程分支
 ```
 
 
-
-
-如果是Python代码，应该使用下面代码块格式，例如：
-
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
-
-显示效果如下：
-
-```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
-```
-
-代码运行结果的文本可以直接粘贴在这里。
-
-**注意：不要使用截图，Markdown文档转换为Pdf格式后，截图可能会无法显示。**
-
 ## 实验考查
 
-请使用自己的语言回答下面的问题，这些问题将在实验检查时用于提问和答辩，并要求进行实际的操作。
 
 1. 什么是版本控制？使用Git作为版本控制软件有什么优点？
-    版本控制是一种可以记录文件或代码在不同时间点的变化，并且能够追踪、管理和恢复这些变化的系统。Git作为一种分布式版本控制系统，具有强大的分支管理、高效的性能、完整的历史记录和强大的冲突解决功能。
+   版本控制是一种可以记录文件或代码在不同时间点的变化，并且能够追踪、管理和恢复这些变化的系统。Git作为一种分布式版本控制系统，具有强大的分支管理、高效的性能、完整的历史记录和强大的冲突解决功能。
 2. 如何使用Git撤销还没有Commit的修改？如何使用Git检出（Checkout）已经以前的Commit？（实际操作）
    要撤销还没有 commit 的修改，可以使用 git checkout 命令
     a. 查看所有的Commit记录：git log
