@@ -134,12 +134,40 @@ Python变量、简单数据类型和列表简介
 
 - [第二部分 Python变量、简单数据类型和列表简介](#第二部分)
 
+#### 练习2-5：名言 　找一句你钦佩的名人说的名言，将其姓名和名言打印出来。输出应类似于下面这样（包括引号）    
+
+```python
+saying='Albert Einsten once said,"A person who never made a mistake never tried anything new."'
+print(saying)  
+
+```
+
+#### 练习2-6：名言2 　重复练习2-5，但用变量famous_person 表示名人的姓名，再创建要显示的消息并将其赋给变量message ，然后打印这条消息。   
+
+```python  
+famous_person="Albert Einsten"
+message='once said,"A person who never madeAlbert Einsten a mistake never tried anything new."'
+print(f"{famous_person } {message}")  
+
+```
+
+#### 练习2-7：剔除人名中的空白 　用变量表示一个人的名字，并在其开头和末尾都包含一些空白字符。务必至少使用字符组合"\t" 和"\n" 各一次。     
+
+
+```python   
+name="\tChen Le\n"
+print(name.lstrip())
+print(name.rstrip())
+print(name.strip())  
+
+```
+
 
 
 
 - [第三部分 Codewars Kata挑战](#第三部分)   
   
-第1题：求离整数n最近的平方数（Find Nearest square number） 
+#### 第1题：求离整数n最近的平方数（Find Nearest square number） 
 
 ```bash
 def nearest_sq(n):
@@ -153,7 +181,7 @@ def nearest_sq(n):
         return num1
 ```  
 
-第2题：弹跳的球（Bouncing Balls）  
+#### 第2题：弹跳的球（Bouncing Balls）  
 
 ```bash
 def bouncing_ball(h, bounce, window):
@@ -168,7 +196,7 @@ def bouncing_ball(h, bounce, window):
     return count
 ```
 
-第3题： 元音统计(Vowel Count)   
+#### 第3题： 元音统计(Vowel Count)   
 
 ```bash
 def get_count(sentence):
@@ -179,7 +207,7 @@ def get_count(sentence):
     return count
 ```
 
-第4题：偶数或者奇数（Even or Odd）  
+#### 第4题：偶数或者奇数（Even or Odd）  
 
 ```bash
 def even_or_odd(number):
@@ -246,9 +274,24 @@ flowchart LR
 
 请使用自己的语言并使用尽量简短代码示例回答下面的问题，这些问题将在实验检查时用于提问和答辩以及实际的操作。
 
-1. Python中的简单数据类型有那些？我们可以对这些数据类型做哪些操作？
-2. 为什么说Python中的变量都是标签？
-3. 有哪些方法可以提高Python代码的可读性？
+1. Python中的简单数据类型有那些？我们可以对这些数据类型做哪些操作？     
+   Python中的简单数据类型包括整数（int）、浮点数（float）、布尔值（bool）、字符串（str）和空值（None）。   
+我们可以对这些数据类型进行以下操作：  
+ 整数：加法、减法、乘法、除法、取余、取整等数学运算  
+ 浮点数：同整数，还可以进行四舍五入、取绝对值等操作  
+ 布尔值：与、或、非等逻辑运算，还可以用于条件判断和循环控制   
+ 字符串：拼接、重复、索引、切片等操作，还可以进行大小写转换、查找、替换等操作    
+ 空值：通常用于表示一个变量没有值，可以用于判断变量是否为空   
+  
+2. 为什么说Python中的变量都是标签？    
+   在Python中，变量被称为“标签”，是因为变量实际上是指向内存中某个对象的引用。当我们创建一个变量时，实际上是在内存中分配了一块空间，并将变量名与这块空间关联起来。这个变量名就是一个标签，它指向了这个内存空间，从而可以通过变量名来访问和操作这个对象。   
+   Python中的变量是动态类型的，也就是说变量可以随时指向不同类型的对象。当我们将一个变量赋值给另一个变量时，实际上是将另一个变量的标签指向了同一个对象，而不是复制了对象的值。这样的设计使得Python的变量非常灵活，可以随时改变指向的对象。
+
+3. 有哪些方法可以提高Python代码的可读性？   
+    (1) 使用有意义的变量名：选择能够清晰描述变量用途的名称，避免使用单个字母或无意义的名称。   
+    (2) 适当添加注释：在代码中添加注释，解释代码的功能、思路或特殊考虑。注释应该简洁明了，不要过度注释。   
+    (3) 避免过长的代码行：代码行不宜过长，一般推荐不超过80个字符。可以使用换行符或括号来分割长代码行。   
+    (4)  使用有意义的函数和方法名：函数和方法的命名应该能够清晰表达其功能和用途，避免使用过于抽象或晦涩的名称。
 
 ## 实验总结
 
