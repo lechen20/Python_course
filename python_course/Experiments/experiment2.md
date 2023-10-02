@@ -179,7 +179,10 @@ def nearest_sq(n):
         return num2
     else:
         return num1
-```  
+```    
+
+![](2023-10-02-11-00-13.png)
+
 
 #### 第2题：弹跳的球（Bouncing Balls）  
 
@@ -193,7 +196,9 @@ def bouncing_ball(h, bounce, window):
         m*=bounce
         count+=2
     return count
-```
+```   
+
+![Alt text](image.png)
 
 #### 第3题： 元音统计(Vowel Count)   
 
@@ -204,7 +209,9 @@ def get_count(sentence):
         if n=='a' or n=='e' or n=='i' or n=='o' or n=='u':
             count+=1
     return count
-```
+```   
+
+![Alt text](image-1.png)
 
 #### 第4题：偶数或者奇数（Even or Odd）  
 
@@ -214,7 +221,8 @@ def even_or_odd(number):
         return "Even"
     else:
         return "Odd"
-```
+```  
+![Alt text](image-2.png)
 
 - [第四部分 使用Mermaid绘制程序流程图](#第四部分)     
 
