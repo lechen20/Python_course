@@ -248,12 +248,12 @@ H --> I
 flowchart LR
 A[Start] --> B{判断 h<=0 or bounce<=0 or bounce>=1 or window>=h ?}
 B-->|Yes| C[返回 -1]
-D--> E[count=1]
-E--> F[m=h*bounce]
-F--> G{判断 m>window ?}
-G-->|Yes| H[m*=bounce]
-H--> I[count+=2]
-G-->|No| J[返回 count]
+B-->|No| D[count=1]
+D--> E[m=h*bounce]
+E--> F{判断 m>window ?}
+F-->|Yes| G[m*=bounce]
+G--> H[count+=2]
+F-->|No| J[返回 count]
 H--> F
 J--> K[End]
 C--> K[end]
