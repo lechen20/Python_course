@@ -242,7 +242,25 @@ H --> I
 
 ```  
 
-2. 元音统计(Vowel Count)  
+2. 弹跳的球（Bouncing Balls）   
+
+```mermaid
+flowchart LR
+A[Start] --> B{判断 h<=0 or bounce<=0 or bounce>=1 or window>=h ?}
+B-->|Yes| C[返回 -1]
+D--> E[count=1]
+E--> F[m=h*bounce]
+F--> G{判断 m>window ?}
+G-->|Yes| H[m*=bounce]
+H--> I[count+=2]
+G-->|No| J[返回 count]
+H--> F
+J--> K[End]
+C--> K[end]
+
+```
+
+3. 元音统计(Vowel Count)  
 
 ```mermaid
 flowchart LR
@@ -256,7 +274,7 @@ F--> G[End]
 
 ```
   
-3. 偶数或者奇数（Even or Odd）  
+4. 偶数或者奇数（Even or Odd）  
 
 ```mermaid  
 flowchart LR
