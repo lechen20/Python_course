@@ -2,13 +2,13 @@
 
 班级： 21计科1
 
-学号： 202302200000
+学号： 20190202222
 
-姓名： 张三
+姓名： 陈乐
 
-Github地址：<https://github.com/yourusername/python_course>
+Github地址：<https://github.com/lechen20/python_course>
 
-CodeWars地址：<https://www.codewars.com/users/yourusername>
+CodeWars地址：<https://www.codewars.com/users/lechen20>
 
 ---
 
@@ -206,35 +206,216 @@ flowchart LR
 
 ## 实验过程与结果
 
-请将实验过程与结果放在这里，包括：
-
 - [第一部分 Python列表操作和if语句](#第一部分)
-- [第二部分 Codewars Kata挑战](#第二部分)
-- [第三部分 使用Mermaid绘制程序流程图](#第三部分)
+```python   
+# 练习3-5
+print(list[0]+"can't come")
+list[0]="chen"
+print(list)
 
-注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
+```     
 
-![Git命令](/Experiments/img/2023-07-26-22-48.png)
+```python   
+# 练习3-6
+list.insert(0,"wu")
+list.insert(2,"hu")
+list.append("xiao")
+print(list)
 
-显示效果如下：
+```   
 
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
+```python   
+# 练习3-7
+list=['wu', 'chen', 'hu', 'li', 'wang', 'xiao']
+for n in range(0,4):
+    num=1
+    num+=1
+    lev=list.pop(num)
+    print(lev +",I'm sorry")
+print(list)
+
+```   
+
+```python   
+# 练习3-8
+want=['beijin','shanghai','shenzhen','wuhan','xianggang']
+want.sort()
+print(want)
+
 ```
 
-如果是Python代码，应该使用下面代码块格式，例如：
+- [第二部分 Codewars Kata挑战](#第二部分)   
+  
+```python   
 
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
+# 第一题：3和5的倍数（Multiples of 3 or 5）
+def solution(number):
+    if number<0:
+        return 0
+    nums=[]
+    for i in range(0,number):
+        if i%3==0:
+            nums.append(i)
+        elif i%5==0:
+            nums.append(i)
+    s = sum(nums)
+    return s
 
-显示效果如下：
 
-```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
-```
+```    
+
+```python   
+
+# 第二题： 重复字符的编码器（Duplicate Encoder）
+
+def duplicate_encode(word):
+    word = word.lower()  # 将所有字母转换为小写，以忽略大小写
+    words=[]
+    for n in word:
+        count=0
+        for m in word:
+            if n==m:
+                count+=1
+        if count>=2 :
+            words.append(')')
+        else:
+            words.append('(')
+    return ''.join(words) #将列表的字符合并成字符串
+
+```    
+  
+  ```python   
+
+# 第三题：括号匹配（Valid Braces）    
+def valid_braces(string):
+    list=[]
+    for n in string:
+        if n=="(" or n=="[" or n=="{":
+            list.append(n)
+        elif n==')' and (not list or list[-1]!='(' ):
+            return False
+        elif n==']' and (not list or list[-1]!='[' ):
+            return False
+        elif n=='}' and (not list or list[-1]!='{'):
+            return False
+        else:
+            list.pop()
+    return not list
+
+
+```    
+ 
+
+ ```python   
+
+# 第四题： 从随机三元组中恢复秘密字符串(Recover a secret string from random triplets) 
+
+
+```   
+
+```python   
+
+# 第五题： 去掉喷子的元音（Disemvowel Trolls）  
+def disemvowel(string_):
+    letters = [letter for letter in string_ ]
+    list=[]
+    for n in letters:
+        if n.lower()!='a' and n.lower()!='e' and n.lower()!='i' and n.lower()!='o' and n.lower()!='u':
+            list.append(n)
+    string_ = ''.join(list)
+    return string_
+
+
+```    
+
+- [第三部分 使用Mermaid绘制程序流程图](#第三部分)     
+
+1.  3和5的倍数（Multiples of 3 or 5）
+```mermaid  
+flowchart LR
+A[Start] --> B{判断 number<0 ?}
+B -->|Yes| C[返回 0]
+B -->|No| D[创建空列表 nums ]
+D --> E[遍历 0-number 之间的数 i]
+E --> F{判断 i%3==0 ?}
+F -->|Yes| G[nums.append(i)]
+F -->|NO| H{判断 i%5==0 ？}
+H -->|Yes| G
+H -->|No| E
+G -->E
+E -->|遍历结束| I[s = sum(nums)]
+I --> J[返回 s]
+J --> K[End]
+C --> K[End]
+```   
+
+2. 重复字符的编码器（Duplicate Encoder）
+```mermaid  
+flowchart LR
+A[Start] --> B[ word = word.lower()]
+B --> C[创建空列表 words]
+C --> D[遍历 word 的每一个字符 n]
+D --> E[count=0]
+E --> F[遍历 word 的每一个字符 m]
+F --> G{判断 n==m ?}
+G -->|Yes| H[count+=1]
+G -->|No| F
+F -->|遍历结束| I{判断 count>=2 ?}
+I -->|Yes| J[words.append(")") ]
+I -->|No| J[ words.append("(") ]
+J -->D
+D -->|遍历结束| K[返回 ''.join(words)]
+K -->L[End]
+```   
+
+3. 括号匹配（Valid Braces）
+```mermaid  
+flowchart LR
+A[Start] --> B[创建空列表 list]
+B -->C[遍历 string 的每个字符 n]
+C -->D{判断 n=="(" or n=="[" or n=="{" ?}
+D -->|Yes| E[ list.append(n)]
+E -->C
+D -->|No| F{判断 n==")" and (not list or list[-1]!="(" ) ?}
+F -->|Yes| G[返回 False]
+G --> O[End]
+F -->|No| H{判断 n==']' and (not list or list[-1]!='[' ?}
+H -->|Yes| I[返回 False]
+I --> O[End]
+H -->|No| J{判断n=='}' and (not list or list[-1]!='{') ?}
+J -->|Yes| K[返回 False]
+K --> O[End]
+J -->|No| L[list.pop()]
+L --> C
+C -->|遍历结束| M{list是否为空?}
+M -->|Yes| N[返回True]
+M -->|No| C
+N -->O[End]
+
+
+```  
+
+4. 从随机三元组中恢复秘密字符串(Recover a secret string from random triplets) 
+
+
+
+
+5. 去掉喷子的元音（Disemvowel Trolls）
+
+```mermaid  
+flowchart LR
+A[Start] --> B[将 n 添加到 letters 列表中]
+B --> C[建立空列表list]
+C --> D[遍历letters的每个字符 n]
+D --> E{判断 字符n.lower()!='a','e','i','o','u'?}
+E -->|Yes| F[list.append(n)]
+E -->|No| D
+D -->|遍历完成| G[将列表 letters 转换为字符串 string_]
+G --> H[返回 string_]
+H --> I[End]
+```  
+
+
 
 代码运行结果的文本可以直接粘贴在这里。
 
