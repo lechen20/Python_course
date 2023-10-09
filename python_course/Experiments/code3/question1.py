@@ -2,10 +2,11 @@
 def solution(number):
     if number<0:
         return 0
-    s=0
+    nums=[]
     for i in range(0,number):
         if i%3==0:
-            s=s+i
+            nums.append(i)
         elif i%5==0:
-            s=s+i
+            nums.append(i)
+    s = sum(nums)
     return s
