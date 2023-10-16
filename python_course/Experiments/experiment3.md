@@ -427,7 +427,6 @@ N -->O[End]
 4. 从随机三元组中恢复秘密字符串(Recover a secret string from random triplets)   
    
 ```mermaid    
-
 flowchart LR
 A[start] --> B[建空列表lis]
 B --> C[将triplets中的每一个字符依次放入lis]
@@ -441,7 +440,7 @@ I --> J["m=triplets[i][j]"]
 J --> K["n=triplets[i][j+1]"]
 K --> L[in_m 为m的位置]
 L --> M[in_n 为n的位置]
-M --> N{判断in_m>in_n ？}
+M --> N{判断in_m>in_n ?}
 N -->|Yes| O[交换列表lis中 n与m的位置]
 O --> P[count+=1]
 P --> I
