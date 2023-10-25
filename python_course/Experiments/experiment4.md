@@ -2,13 +2,13 @@
 
 班级： 21计科1
 
-学号： 202302200000
+学号： 20190202222
 
-姓名： 张三
+姓名： 陈乐
 
-Github地址：<https://github.com/yourusername/python_course>
+Github地址：<https://github.com/lechen20/python_course>
 
-CodeWars地址：<https://www.codewars.com/users/yourusername>
+CodeWars地址：<https://www.codewars.com/users/lechen20>
 
 ---
 
@@ -331,45 +331,216 @@ flowchart LR
 请将实验过程与结果放在这里，包括：
 
 - [第一部分 Python列表操作和if语句](#第一部分)
+  
+
 - [第二部分 Codewars Kata挑战](#第二部分)
+
+#### 第一题：淘气还是乖孩子（Naughty or Nice）
+```python   
+def naughty_or_nice(data):
+    nau=0
+    nic=0
+    for mouth ,keys in data.items():
+        for key , value in keys.items():
+            if value=='Naughty':
+                nau+=1
+            elif value=='Nice':
+                nic+=1
+    if nic >= nau:
+        return "Nice!"
+    else:
+        return "Naughty!"
+
+```   
+![Alt text](image-17.png)   
+
+
+#### 第二题： 观察到的PIN（The observed PIN）
+```python   
+def get_pins(observed):
+    PIN = {'1':['1','2','4'], '2':['1','2','3','5'], '3':['2','3','6'], '4':['1','4','5','7'], '5':['2','4','5','6','8'], '6':['3','5','6','9'], '7':['4','7','8'], '8':['5','7','8','9','0'], '9':['6','8','9'], '0':['0','8']}
+    if len(observed) == 1:
+        return PIN[observed]
+    else:
+        res = []
+        first = observed[0]
+        rest = get_pins(observed[1:])
+        for value1 in PIN[first]:
+            for value2 in rest:
+                res.append(value1+value2)
+        return res
+
+```     
+![Alt text](image-20.png)
+
+#### 第三题： RNA到蛋白质序列的翻译（RNA to Protein Sequence Translation）  
+
+```python   
+def protein(rna):
+    CDEWARS = ""
+    for i in range(0, len(rna), 3):
+        m = rna[i:i+3]
+        n = PROTEIN_DICT[m]
+        if n == "Stop":
+            break
+        CDEWARS += n
+    return CDEWARS
+
+```     
+![Alt text](image-19.png)
+
+#### 第四题： 填写订单（Thinkful - Dictionary drills: Order filler）  
+
+```python   
+def fillable(stock, merch, n):
+    if merch in stock and stock[merch]>=n:
+        return True
+    else:
+        return False
+
+```      
+![Alt text](image-18.png)
+
+#### 第五题： 莫尔斯码解码器（Decode the Morse code, advanced）
+
+```python   
+
+
+```
+
+
+
+
 - [第三部分 使用Mermaid绘制程序流程图](#第三部分)
 
-注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
+#### 题一   
 
-![Git命令](/Experiments/img/2023-07-26-22-48.png)
+```mermaid
+flowchart LR   
+A[Start] -->B[nau=0,nic=0]
+B --> C[遍历 字典data]
+C --> D[遍历 嵌套字典]
+D --> E{判断 嵌套字典中 value='Naughty'?}
+E -->|Yes| F[nau+=1]
+F --> D
+E -->|No| G{判断 嵌套字典中 value='Nice'?}
+G -->|Yes| H[nic+=1]
+H --> D
+G -->|No| D
+D -->|结束遍历| C
+C -->|结束遍历| I{判断 nic >= nau ?}
+I -->|Yes| J[返回 'Nice!']
+I -->|No| K[返回 'Naughty!']
+J --> L[End]
+K --> L[End] 
 
-显示效果如下：
+```    
 
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
-```
+#### 题二   
 
-如果是Python代码，应该使用下面代码块格式，例如：
+```mermaid
+flowchart LR  
+A[Start] --> B{判断 数字长度是否是1}
+B -->|Yes| C[返回 数字对应的可能数字列表]
+B -->|No| D[初始化空列表 res]
+D --> E[获取观察到的数字的第一个数字]
+E --> F[递归调用get_pins函数，获取观察到数字的其余数字的所有可能组合]
+F --> G[遍历第一个数字对应的可能数字列表]
+G --> H[遍历其余数字的所有可能组合]
+H --> I[将第一个数字和其余数字的每个可能组合连接起来，形成新的密码组合]
+I --> H
+H -->|遍历结束| G
+G -->|遍历结束| J[返回 列表 res]
+J --> K[End]
+C --> K[End]
+```   
 
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
+#### 题三   
 
-显示效果如下：
+```mermaid
+flowchart LR  
+A[Start] --> B[CDEWARS初始化为空字符串]
+B --> C[在字符串 rna 中每次遍历长度为3 ]
+C --> D[以3为单位 将rna中的字符放入m ]
+D --> E[在字典PROTEIN_DICT 中找到关键字m的值]
+E --> F{判断 n == 'Stop'?}
+F -->|Yes| G[返回 CDEWARS ]
+F -->|No| H[CDEWARS += n]
+H --> C
+C -->|遍历结束| G
+G --> I[End]
 
-```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
-```
+```    
 
-代码运行结果的文本可以直接粘贴在这里。
+#### 题四  
 
-**注意：不要使用截图，Markdown文档转换为Pdf格式后，截图可能会无法显示。**
+```mermaid
+flowchart LR   
+A[Start] -->B{判断 merch在stock中并且 数量>=n}
+B -->|Yes| C[返回 True]
+B -->|No| D[返回 False]
+C --> E[End]
+D --> E[End]
+
+```    
+
+#### 题五   
+
+```mermaid
+
+
+```    
+
+
 
 ## 实验考查
 
 请使用自己的语言并使用尽量简短代码示例回答下面的问题，这些问题将在实验检查时用于提问和答辩以及实际的操作。
 
-1. 字典的键和值有什么区别？
-2. 在读取和写入字典时，需要使用默认值可以使用什么方法？
-3. Python中的while循环和for循环有什么区别？
-4. 阅读[PEP 636 – Structural Pattern Matching: Tutorial](https://peps.python.org/pep-0636/), 总结Python 3.10中新出现的match语句的使用方法。
+1. 字典的键和值有什么区别？    
+   字典的键和值是成对出现的，键是字典中的唯一标识符，而值是与键相关联的数据。键必须是不可变的，例如字符串、数字或元组，而值可以是任意类型的数据。    
+    区别如下：    
+        唯一性：字典中的键是唯一的，每个键只能出现一次，而值可以重复。   
+        可变性：字典的键必须是不可变的，而值可以是可变的。    
+        访问方式：可以通过键来访问字典中的值，但不能通过值来访问字典中的键。     
+        顺序：字典是无序的，键和值的存储顺序是不固定的，而列表是有序的。     
+        用途：键通常用于查找和索引数据，而值用于存储和表示实际的数据。     
+
+2. 在读取和写入字典时，需要使用默认值可以使用什么方法？     
+   在读取和写入字典时，可以使用get()方法来设置默认值。   
+   get()方法接受两个参数：键和默认值。    
+   如果键存在于字典中，则返回对应的值；如果键不存在，则返回默认值。   
+
+3. Python中的while循环和for循环有什么区别？     
+    循环次数：for循环通常用于循环遍历一个序列或集合中的元素，循环次数是固定的，而while循环则可以根据条件来控制循环次数，循环次数是不确定的。   
+    循环变量：for循环需要提供一个循环变量，用于在每次循环中获取序列或集合中的下一个元素，而while循环则需要在循环体内手动更新循环变量。    
+    循环变量：for循环需要提供一个循环变量，用于在每次循环中获取序列或集合中的下一个元素，而while循环则需要在循环体内手动更新循环变量。    
+    适用场景：for循环适用于在已知序列或集合中循环遍历元素的情况，而while循环适用于在未知条件下循环执行一段代码的情况。   
+
+
+4. 阅读[PEP 636 – Structural Pattern Matching: Tutorial](https://peps.python.org/pep-0636/), 总结Python 3.10中新出现的match语句的使用方法。    
+    (1) 基本语法：
+    match value:
+    pattern_1:
+        # 执行代码块1
+    pattern_2:
+        # 执行代码块2
+    ...
+    pattern_n:
+        # 执行代码块n
+    (2)匹配顺序：   
+    match语句按照从上到下的顺序进行模式匹配，只会执行第一个匹配成功的代码块，后续的模式不再匹配。    
+    可以使用|操作符将多个模式组合在一起，表示匹配任意一个模式。     
+    (3)模式匹配：   
+    常量模式：匹配特定的常量值，例如42、"hello"。    
+    变量模式：将匹配的值绑定到一个变量，例如x、name。     
+    占位符模式：使用下划线_表示不关心的部分，不会绑定任何值。    
+    类型模式：匹配指定的类型，使用type(...)进行匹配。     
+    结构模式：匹配复杂的数据结构，例如元组、列表、字典等。    
+    (4)条件匹配：     
+    可以在模式中使用if语句进行条件匹配，例如pattern if condition。   
+    只有当条件为真时，才会进行模式匹配     
+
 
 ## 实验总结
 
