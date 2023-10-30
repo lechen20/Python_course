@@ -489,10 +489,10 @@ A[Start] --> B{判断 数字长度是否是1}
 B -->|Yes| C[返回 数字对应的可能数字列表]
 B -->|No| D[初始化空列表 res]
 D --> E[获取观察到的数字的第一个数字]
-E --> F[递归调用get_pins函数，获取观察到数字的其余数字的所有可能组合]
+E --> F[递归调用'get_pins'函数]
 F --> G[遍历第一个数字对应的可能数字列表]
 G --> H[遍历其余数字的所有可能组合]
-H --> I[将第一个数字和其余数字的每个可能组合连接起来，形成新的密码组合]
+H --> I[组合连接所有可能形成新的密码组合]
 I --> H
 H -->|遍历结束| G
 G -->|遍历结束| J[返回 列表 res]
@@ -529,10 +529,17 @@ D --> E[End]
 
 ```    
 
+
+
+
+
+
+
+
 #### 题五   
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[start] --> B["bits.strip('0')"]
     B --> C[unit = 0]
     C --> D[for bit in bits]
@@ -571,8 +578,8 @@ flowchart TD
     AB --> S
     S -->|结束遍历| AC[return morse_code]
  
-
 ```    
+
 
 
 
