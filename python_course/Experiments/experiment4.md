@@ -404,10 +404,55 @@ def fillable(stock, merch, n):
 #### 第五题： 莫尔斯码解码器（Decode the Morse code, advanced）
 
 ```python   
+def decode_bits(bits):
+    bits = bits.strip("0")  #从二进制字符串中去除前导和尾随的零
+    unit = 0
+    for bit in bits:       #通过计算连续的1的数量来确定单位长度
+        if bit != "0":
+            unit += 1
+        else:
+            break
+    count = 1
+    for i in range(1,len(bits)):
+        if bits[i] == bits[i-1]:
+            count += 1
+        else:
+            if count < unit:              #刷新unit的值
+                unit = count
+                count = 1
+            else:
+                count = 1
+    morse_code = ""
+    
+    words = bits.split("0"*7*unit)  #使用 7 个单位的零作为分隔符将二进制字符串分割成单词
+    for word in words:
+        characters = word.split("0"*3*unit)  #使用 3 个单位的零作为分隔符将二进制字符串分割成字符
+        for character in characters:
+            signs = character.split("0"*unit)  #使用 1 个单位的零作为分隔符将每个字符分割成莫尔斯码符号
+            for sign in signs:
+                if sign == "1"*3*unit:
+                    morse_code += "-"
+                else:
+                    morse_code += "."
+            morse_code += " "
+        morse_code += "   "
+    return morse_code
+            
 
+
+def decode_morse(morseCode):
+    morseCode.strip()     #从莫尔斯码字符串中去除前导和尾随的空格
+    result = ""
+    characters = morseCode.split(" ")   #空格作为分隔符将字符串分割成单个字符
+    for character in characters:
+        if character != "":
+            result += MORSE_CODE[character]
+        else:
+            result += " "
+    return ' '.join(result.split())
 
 ```
-
+![Alt text](image-21.png)
 
 
 
@@ -487,7 +532,45 @@ D --> E[End]
 #### 题五   
 
 ```mermaid
+flowchart TD
+    A[start] --> B["bits.strip('0')"]
+    B --> C[unit = 0]
+    C --> D[for bit in bits]
+    D --> E{"if bit != '0'"}
+    E -->|Yes| F[unit += 1]
+    E -->|No| G[break]
+    G --> H[unit now might be 1 unit or 3 units]
+    D -->|结束遍历| I[count = 1]
+    H --> I
+    I --> J["for i in range(1,len(bits))"]
+    J --> K{"if bits[i] == bits[i-1]"}
+    K -->|Yea| L[count += 1]
+    K -->|No| M{if count < unit}
+    L --> J
+    M -->|Yes| N[unit = count]
+    N --> O[count = 1]
+    O -->J
+    M -->|No| P[count = 1]
+    P --> J
+    J -->|结束遍历| Q[morse_code = ""]
+    Q --> R["words = bits.split('0'*7*unit)"]
 
+    R --> S[for word in words]
+    S --> T["characters = word.split('0'*3*unit)"]
+    T --> U[for character in characters]
+    U --> V["signs = character.split('0'*unit)"]
+    V --> W[for sign in signs]
+    W --> X{"if sign == '1'*3*unit"}
+    X -->|Yes| Y[morse_code += '-']
+    X -->|No| Z[morse_code += '.']
+    Y --> W
+    Z --> W
+    W -->|结束遍历| AA[morse_code += ' ']
+    AA --> U
+    U -->|结束遍历| AB[morse_code += '   ']
+    AB --> S
+    S -->|结束遍历| AC[return morse_code]
+ 
 
 ```    
 
@@ -523,8 +606,6 @@ D --> E[End]
     match value:
     pattern_1:
         # 执行代码块1
-    pattern_2:
-        # 执行代码块2
     ...
     pattern_n:
         # 执行代码块n
@@ -545,3 +626,9 @@ D --> E[End]
 ## 实验总结
 
 总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。
+1. 字典是Python中非常重要的数据结构之一，它用于存储键值对，并且可以根据键快速查找对应的值。字典可以通过循环遍历来访问所有的键、值或键值对    
+2. 字典的键必须是唯一的，而值可以重复    
+3. 字典的键可以是任意不可变的数据类型，如整数、浮点数、字符串、元组等，但不能是可变的数据类型，如列表、字典。字典的值可以是任意的数据类型，甚至可以是另一个字典     
+4. 字典提供了一些常用的方法，如keys()、values()、items()等，可以用于获取字典中的键、值或键值对。字典的复制可以使用copy()方法来实现，但是，复制的是字典的引用，而不是创建一个新的字典。    
+5. 通过学习Python字典，我们可以更灵活地处理数据，提高代码的效率和可读性     
+6. 通过学习Python的while循环，我们可以实现更加灵活和动态的代码逻辑，可以根据不同的条件来控制程序的执行流程。while循环在处理需要重复执行的任务时非常有用，可以提高代码的效率和可维护性。同时，需要注意循环条件的设置，以避免出现死循环的情况
