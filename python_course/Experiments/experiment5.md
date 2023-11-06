@@ -2,13 +2,13 @@
 
 班级： 21计科1
 
-学号： 202302200000
+学号： 20190202222
 
-姓名： 张三
+姓名： 陈乐
 
-Github地址：<https://github.com/yourusername/python_course>
+Github地址：<https://github.com/lechen20/python_course>
 
-CodeWars地址：<https://www.codewars.com/users/yourusername>
+CodeWars地址：<https://www.codewars.com/users/lechen20>
 
 ---
 
@@ -192,32 +192,225 @@ flowchart LR
 
 请将实验过程与结果放在这里，包括：
 
-- [第一部分 Codewars Kata挑战](#第一部分)
-- [第二部分 使用Mermaid绘制程序流程图](#第二部分)
+- [第一部分 Codewars Kata挑战](#第一部分)    
 
-注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
+#### 第一题：停止逆转我的单词    
 
-![Git命令](/Experiments/img/2023-07-26-22-48.png)
-
-显示效果如下：
-
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
-```
-
-如果是Python代码，应该使用下面代码块格式，例如：
-
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
-
-显示效果如下：
 
 ```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
+def spin_words(sentence):
+    words = sentence.split()  
+    words1 = []
+    for word in words:
+        if len(word) > 4: 
+            word = word[::-1] 
+        words1.append(word)
+    return ' '.join(words1) 
+
 ```
+
+![Alt text](image-22.png)
+
+
+#### 第二题： 发现离群的数(Find The Parity Outlier)    
+
+
+```python
+
+def find_outlier(integers):
+    even_num=0
+    odd_num=0
+    even=None
+    odd=None
+    for i in integers:
+        if(i%2==0):
+            odd_num+=1
+            odd=i
+        else:
+            even_num+=1
+            even=i
+    if(odd_num>even_num):
+        return even
+    else:
+        return odd
+
+```      
+
+![Alt text](image-23.png)
+
+
+
+#### 第三题： 检测Pangram    
+
+
+```python
+def is_pangram(s):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    s = s.lower()
+    s = ''.join(filter(str.isalpha, s))
+    for letter in alphabet:
+        if letter not in s:
+            return False
+    return True
+
+```      
+![Alt text](image-24.png)
+
+#### 第四题： 数独解决方案验证    
+
+
+```python
+
+def validate_sudoku(board):
+    elements = set(range(1, 10))
+
+    for b in board:
+        if set(b) != elements: 
+            return False
+    for b in zip(*board):  
+        if set(b) != elements: 
+            return False
+
+    for i in range(3, 10, 3):
+        for j in range(3, 10, 3):
+            elements_set = set()
+            for w in range(j-3, j):
+                for q in range(i-3, i):
+                    elements_set.add(board[q][w])
+            if elements != elements_set:
+                return False
+            
+    return True
+
+```    
+![Alt text](image-25.png)
+
+#### 第五题： 疯狂的彩色三角形    
+
+
+```python
+
+def triangle(row):
+    reduce=[3**i+1 for i in range(10) if 3**i<=100000][::-1]
+    
+    COLOR = {'GG':'G', 'BB':'B', 'RR':'R', 'BR':'G', 
+            'BG':'R', 'GB':'R', 'GR':'B', 'RG':'B', 'RB':'G'}
+
+    for length in reduce:
+        while len(row)>=length:
+            row=[ COLOR[row[i] + row[i+length-1]] for i in range(len(row)-length+1)]
+    return row[0]
+
+```
+
+
+
+- [第二部分 使用Mermaid绘制程序流程图](#第二部分)
+  
+#### 第一题：停止逆转我的单词    
+
+```mermaid
+flowchart LR   
+A[Start] -->B[将字符串分割成子字符串列表words]
+B --> C[新建列表words1]
+C --> D[遍历列表words]
+D --> E{"判断  len(word) > 4 ?"}
+E -->|Yes| F[word反序]
+E -->|No| G[word插入 words1列表]
+F --> G
+G -->D
+D -->|遍历结束| H[返回 空格连接列表words1中的元素]
+H -->  I[End]
+```    
+
+#### 第二题： 发现离群的数(Find The Parity Outlier)    
+
+```mermaid
+flowchart LR   
+A[Start] --> B[even_num=0]
+B --> C[odd_num=0]
+C --> D[even=None]
+D --> E[odd=None]
+E --> F[遍历integers中的i]
+F --> G{判断i%2==0?}
+G -->|Yes| H[odd_num+=1]
+H --> I[odd=i]
+G -->|No| J[even_num+=1]
+J --> K[even=i]
+I --> F
+K --> F
+F -->|结束遍历| L{判断 odd_num>even_num}
+L -->|Yes| M[返回 even]
+L -->|No| N[返回 odd]
+M --> O[End]
+N --> O[End]
+```    
+
+#### 第三题： 检测Pangram   
+
+```mermaid
+flowchart LR   
+A[Start] --> B["alphabet = 'abcdefghijklmnopqrstuvwxyz'"]
+B --> C[将字符串S小写化]
+C --> D[从字符串s中提取所有字母并组成一个新的字符串] 
+D --> E[遍历alphabet的每一个letter]
+E --> F{判断letter字符是否在S中}
+F -->|Yes| G[返回 False]
+F -->|No| E
+E -->|遍历结束| H[返回 True]
+H --> I[End]
+G --> I[End]
+```    
+
+
+
+#### 第四题： 数独解决方案验证   
+ 
+```mermaid
+flowchart LR   
+A[Start] --> B[定义一个包含1到9的集合elements]
+B --> C[遍历board每一行]
+C --> D{" 判断 set(b) != elements"}
+D -->|Yes| E[返回False]
+D -->|No| C
+C -->|遍历结束| F[遍历board每一列]
+F --> G{"判断 set(b) != elements"}
+G -->|Yes| H[返回False]
+H --> F
+G -->|No| F
+F -->|遍历结束| I[遍历每个3x3的小方格的行]
+I --> J[遍历每个3x3的小方格的列]
+J --> K[定义一个空集合elements_set]
+K --> L[遍历小方格内的每一列]
+L --> M[遍历小方格内的每一行]
+M --> N[将小方格内的元素添加到集合中]
+N --> M
+M -->|遍历结束| L
+L -->|遍历结束| O{判断elements != elements_set}
+O -->|Yes| P[返回False]
+O -->|No| J 
+J -->|遍历结束| I
+I -->|遍历结束| Q[返回True]
+Q --> R[end]
+
+``` 
+
+#### 第五题： 疯狂的彩色三角形  
+
+```mermaid
+flowchart LR   
+A[Start] --> B[初始化reduce列表]
+B --> C[定义COLOR字典表示颜色转换规则]
+C --> D[遍历reduce列表中的每个长度length]
+D --> E{判断row的长度是否大于等于length}
+E -->|No| G["返回row[0]"]
+E -->|Yes| F[根据颜色转换规则更新row]
+F --> D
+G --> H[End]
+
+
+```   
+
 
 代码运行结果的文本可以直接粘贴在这里。
 
@@ -227,11 +420,51 @@ def add_binary(a,b):
 
 请使用自己的语言并使用尽量简短代码示例回答下面的问题，这些问题将在实验检查时用于提问和答辩以及实际的操作。
 
-1. 集合（set）类型有什么特点？它和列表（list）类型有什么区别？
-2. 集合（set）类型主要有那些操作？
-3. 使用`*`操作符作用到列表上会产生什么效果？为什么不能使用`*`操作符作用到嵌套的列表上？使用简单的代码示例说明。
-4. 总结列表,集合，字典的解析（comprehension）的使用方法。使用简单的代码示例说明。
+1. 集合（set）类型有什么特点？它和列表（list）类型有什么区别？    
+   集合（set）类型的特点：集合是无序的，元素没有索引;集合中的元素是唯一的，不允许重复;集合中的元素是不可变的，不能修改，但可以添加或删除元素.    
+   集合和列表的区别：列表是有序的，元素有索引;列表中的元素可以重复;列表中的元素是可变的，可以修改、添加或删除元素.   
+2. 集合（set）类型主要有那些操作？   
+   创建集合：使用大括号 {} 或 set() 函数。   
+   添加元素：使用 add() 方法或 update() 方法     
+   删除元素：使用 remove() 方法    
+   判断元素是否存在：使用 in 关键字    
+   获取集合长度：使用 len() 函数    
+3. 使用`*`操作符作用到列表上会产生什么效果？为什么不能使用`*`操作符作用到嵌套的列表上？使用简单的代码示例说明。    
+   使用 * 操作符作用到列表上会产生重复元素的效果。例如，[1, 2, 3]*3 的结果是 [1, 2, 3, 1, 2, 3, 1, 2, 3]。这是因为*操作符会将列表重复指定的次数。     
+   不能使用*操作符作用到嵌套的列表上，因为*操作符只会复制列表的引用，而不会复制嵌套列表的内容。    
+   ```python
+   list = [[1, 2, 3]] * 3
+   list[0][0] = 0
+   print(list)  # 输出 [[0, 2, 3], [0, 2, 3], [0, 2, 3]]
+   ```   
+
+4. 总结列表,集合，字典的解析（comprehension）的使用方法。使用简单的代码示例说明。   
+    
+    列表
+    ```python
+    numbers = [1, 2, 3, 4, 5]
+    squared_numbers = [x**2 for x in numbers]
+    print(squared_numbers)  # 输出 [1, 4, 9, 16, 25]
+    ```       
+    集合
+    ```python
+    numbers = [1, 2, 2, 3, 3, 4, 5]
+    unique_numbers = {x for x in numbers}
+    print(unique_numbers)  # 输出 {1, 2, 3, 4, 5}
+
+    ```   
+    字典
+    ```python
+    numbers = [1, 2, 3, 4, 5]
+    squared_dict = {x: x**2 for x in numbers}
+    print(squared_dict)  # 输出 {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+
+    ```
 
 ## 实验总结
 
 总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。
+1. 利用str的split方法可以将字符串分为单词列表    
+2. 使用str的join方法连结列表中的单词    
+3. zip() 它可以用于将一个二维列表（或矩阵）进行转置。zip() 将会返回一个新的迭代器，其中每个元素都是原始二维列表中相应位置的元素组成的元组    
+4. 列表,集合，字典不同的用法和区别   
