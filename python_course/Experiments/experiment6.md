@@ -2,13 +2,13 @@
 
 班级： 21计科1
 
-学号： 202302200000
+学号： 20190202222
 
-姓名： 张三
+姓名： 陈乐
 
-Github地址：<https://github.com/yourusername/python_course>
+Github地址：<https://github.com/lechen20/python_course>
 
-CodeWars地址：<https://www.codewars.com/users/yourusername>
+CodeWars地址：<https://www.codewars.com/users/lechen20>
 
 ---
 
@@ -320,34 +320,158 @@ flowchart LR
 请将实验过程与结果放在这里，包括：
 
 - [第一部分 Python函数](#第一部分)
-- [第二部分 Codewars Kata挑战](#第二部分)
-- [第三部分 使用Mermaid绘制程序流程图](#第三部分)
+- [第二部分 Codewars Kata挑战](#第二部分)   
 
-注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
+#### 第一题：编码聚会1
+```python
+def count_developers(lst):
+    count=0
+    for lsts in lst:
+        if lsts['continent']=='Europe' and lsts['language']=='JavaScript':
+            count+=1
+    return count
+```    
+![Alt text](image-26.png)
 
-![Git命令](/Experiments/img/2023-07-26-22-48.png)
-
-显示效果如下：
-
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
-```
-
-如果是Python代码，应该使用下面代码块格式，例如：
-
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
-
-显示效果如下：
+#### 第二题： 使用函数进行计算   
 
 ```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
-```
+def zero(func=None):
+    return 0 if func is None else func(0)
 
-代码运行结果的文本可以直接粘贴在这里。
+def one(func=None):
+    return 1 if func is None else func(1)
+
+def two(func=None):
+    return 2 if func is None else func(2)
+
+def three(func=None):
+    return 3 if func is None else func(3)
+
+def four(func=None):
+    return 4 if func is None else func(4)
+
+def five(func=None):
+    return 5 if func is None else func(5)
+
+def six(func=None):
+    return 6 if func is None else func(6)
+
+def seven(func=None):
+    return 7 if func is None else func(7)
+
+def eight(func=None):
+    return 8 if func is None else func(8)
+
+def nine(func=None):
+    return 9 if func is None else func(9)
+
+def plus(y):
+    return lambda x: x + y
+
+def minus(y):
+    return lambda x: x - y
+
+def times(y):
+    return lambda x: x * y
+
+def divided_by(y):
+    return lambda x: x // y
+
+```     
+![Alt text](image-27.png)
+
+#### 第三题： 缩短数值的过滤器(Number Shortening Filter)    
+```python
+def shorten_number(suffixes,base):
+    def my_filter(data):
+        try:
+            number = int(data)
+        except (TypeError, ValueError):
+            return str(data)
+        else:
+            i = 0
+            while number//base > 0 and i < len(suffixes)-1:
+                number //= base
+                i += 1
+            return str(number) + suffixes[i] 
+    
+    return my_filter
+
+```    
+![Alt text](image-28.png)
+
+#### 第四题： 编码聚会7
+```python
+def find_senior(lst):
+    max=0
+    lis=[]
+    for lsts in lst:
+        if lsts['age']>max:
+            lis.clear()
+            lis.append(lsts)
+            max=lsts['age']
+        elif lsts['age']==max:
+            lis.append(lsts)
+    return lis
+```     
+![Alt text](image-29.png)
+
+
+
+
+- [第三部分 使用Mermaid绘制程序流程图](#第三部分)   
+
+## 第一题：编码聚会1
+```mermaid
+flowchart LR
+A[Start] --> B[初始化count]
+B --> C[遍历字典数组lst中的每个字典lsts]
+C --> D{"判断 lsts['continent']=='Europe' and lsts['language']=='JavaScript'"}
+D -->|Yes| E[count+1]
+D -->|No| C
+C -->|遍历结束| F[返回 count]
+F --> G[End]
+```     
+
+
+## 第三题： 缩短数值的过滤器(Number Shortening Filter)
+```mermaid
+flowchart LR
+A[Start] --> B[定义内部函数my_filter]
+B --> C{判断data是否可以转换为整数}
+C -->|No| D["返回str(data)"]
+C -->|Yes| E[将data转换为整数number]
+E --> F[初始化变量i为0]
+F --> G{判断number除以base是否大于0并且i是否小于suffixes的长度减1}
+G -->|No| H["返回str(number) + suffixes[i]"]
+G -->|Yes| I[number除以base并且i加1]
+I --> F
+H --> J[返回my_filter函数]
+J --> K[End]
+
+```     
+
+## 第四题： 编码聚会7
+```mermaid
+flowchart LR
+A[Start] --> B[初始化变量max为0]
+B --> C[初始化空列表lis]
+C --> D[遍历lst中的每个字典lsts]
+D --> E{判断lsts的年龄是否大于max}
+E -->|Yes| F[清空lis 将lsts添加到lis中 并更新max为lsts的年龄]
+E -->|No| G{判断lsts的年龄是否等于max}
+G -->|Yes| H[将lsts添加到lis中]
+G -->|No| D
+F --> D
+H --> I[返回lis]
+I --> J[End]
+
+```    
+
+
+
+
 
 **注意：不要使用截图，Markdown文档转换为Pdf格式后，截图可能会无法显示。**
 
@@ -355,10 +479,38 @@ def add_binary(a,b):
 
 请使用自己的语言并使用尽量简短代码示例回答下面的问题，这些问题将在实验检查时用于提问和答辩以及实际的操作。
 
-1. 什么是函数式编程范式？
-2. 什么是lambda函数？请举例说明。
-3. 什么是高阶函数？常用的高阶函数有哪些？这些高阶函数如何工作？使用简单的代码示例说明。
+1. 什么是函数式编程范式？     
+   函数式编程范式是一种编程范式，它将计算视为数学函数的求值，避免使用可变状态和可变数据。它强调函数的纯粹性、不可变性和递归。
+2. 什么是lambda函数？请举例说明。      
+   Lambda函数是一种匿名函数，它可以在一行内定义并使用。它通常用于函数式编程中，作为参数传递给其他函数。   
+```python
+add = lambda x, y: x + y
+print(add(3, 5))  # 输出 8
+``` 
+3. 什么是高阶函数？常用的高阶函数有哪些？这些高阶函数如何工作？使用简单的代码示例说明。    
+   高阶函数是指接受一个或多个函数作为参数，并/或者返回一个函数作为结果的函数。常用的高阶函数包括map、filter和reduce。这些高阶函数通过对传入的函数进行操作，实现对列表或其他数据结构的处理和转换.   
+
+```python
+# map函数
+nums = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x**2, nums))
+print(squared)  # 输出 [1, 4, 9, 16, 25]
+
+# filter函数
+nums = [1, 2, 3, 4, 5]
+even_nums = list(filter(lambda x: x % 2 == 0, nums))
+print(even_nums)  # 输出 [2, 4]
+
+# reduce函数
+from functools import reduce
+nums = [1, 2, 3, 4, 5]
+sum = reduce(lambda x, y: x + y, nums)
+print(sum)  # 输出 15
+
+   
+   ``` 
 
 ## 实验总结
 
-总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。
+总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。    
+在这个过程中，我使用了Python作为编程工具，学习了Python语言的函数式编程特性和语法。我还学习了一些编程技巧，如如何使用lambda函数和高阶函数来简化代码，并且了解了函数式编程思想对编程的影响。总的来说，这次实验让我对函数式编程有了更深入的理解，也提高了我在Python中应用函数式编程的能力。
