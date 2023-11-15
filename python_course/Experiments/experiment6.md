@@ -417,12 +417,34 @@ def find_senior(lst):
 ```     
 ![Alt text](image-29.png)
 
+#### 第五题： Currying versus partial application
+```python
+from inspect import signature
+from functools import partial
 
+def curry_partial(main_func, *args):
+    
+    if not(callable(main_func)):
+        return main_func
+    
+    p = len(signature(main_func).parameters)
+    func = partial(main_func)
+    
+    for a in args:
+        if len(func.args) == p: break
+        func = partial(func, a)
+    
+    if len(func.args) < p:
+        return partial(curry_partial, main_func, *func.args)
+
+    return func()
+```     
+![Img](/FILES/experiment6.md/img-20231115174344.png)
 
 
 - [第三部分 使用Mermaid绘制程序流程图](#第三部分)   
 
-## 第一题：编码聚会1
+### 第一题：编码聚会1
 ```mermaid
 flowchart LR
 A[Start] --> B[初始化count]
@@ -435,7 +457,7 @@ F --> G[End]
 ```     
 
 
-## 第三题： 缩短数值的过滤器(Number Shortening Filter)
+### 第三题： 缩短数值的过滤器(Number Shortening Filter)
 ```mermaid
 flowchart LR
 A[Start] --> B[定义内部函数my_filter]
@@ -452,7 +474,7 @@ J --> K[End]
 
 ```     
 
-## 第四题： 编码聚会7
+### 第四题： 编码聚会7
 ```mermaid
 flowchart LR
 A[Start] --> B[初始化变量max为0]
@@ -468,8 +490,26 @@ H --> I[返回lis]
 I --> J[End]
 
 ```    
-
-
+### 第五题： Currying versus partial application
+```mermaid
+flowchart LR
+A[Start] --> B[定义函数curry_partial]
+B --> C{判断main_func是否可调用}
+C -->|No| D["返回main_func"]
+C -->|Yes| E[初始化变量p为main_func参数的个数]
+E --> F[初始化变量func为main_func的偏函数]
+F --> G{判断func的参数个数是否等于p}
+G -->|Yes| H["返回func"]
+G -->|No| I[初始化变量a为args的第一个参数]
+I --> J{判断func的参数个数是否等于p}
+J -->|Yes| K["返回func"]
+J -->|No| L[将a作为func的参数之一]
+L --> M[将func作为函数curry_partial的参数之一]
+M --> E
+K --> N[返回func]
+N --> O[End]
+D --> O
+```   
 
 
 
