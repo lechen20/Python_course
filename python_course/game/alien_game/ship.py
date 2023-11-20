@@ -8,7 +8,7 @@ class Ship(Sprite):
         super().__init__()
         self.screen=screen  #screen 用来指定绘制飞船的位置
         self.ai_settings=ai_settings  #ai_settings让飞船获取到速度设置
-        self.image=pygame.image.load('d:/all_course/PythonC/course/alien_game/images/1.bmp')
+        self.image=pygame.image.load('d:/pythcourse/python_course/python_course/game/alien_game/images/1.bmp')
         self.rect=self.image.get_rect()
         self.screen_rect=self.screen.get_rect()
         
