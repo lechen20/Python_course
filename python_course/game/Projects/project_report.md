@@ -358,31 +358,30 @@ import pygame
 from ship import Ship
 from settings import Setting
 
-class TestShipMovement(unittest.TestCase):
+def setUp(self):
+    pygame.init()
+    self.ai_settings = Setting() # 创建游戏设置实例
+    self.screen = pygame.display.set_mode((self.ai_settings.screen_width, 
+                                            self.ai_settings.screen_height)) # 创建窗口
+    self.ship = Ship(self.ai_settings, self.screen) # 创建飞船实例
 
-    def setUp(self):
-        pygame.init()
-        self.ai_settings = Setting()
-        self.screen = pygame.display.set_mode((self.ai_settings.screen_width, 
-                                                self.ai_settings.screen_height))
-        self.ship = Ship(self.ai_settings, self.screen)
+def test_move_left(self):
+    initial_center_x = self.ship.rect.centerx # 记录初始中心x坐标
+    self.ship.moving_left = True # 设置向左移动标志为True
+    self.ship.update() # 更新飞船位置
+    self.assertEqual(self.ship.rect.centerx, 
+                    initial_center_x - self.ai_settings.ship_speed) # 检查飞船位置是否正确
 
-    def test_move_left(self):
-        initial_center_x = self.ship.rect.centerx
-        self.ship.moving_left = True
-        self.ship.update()
-        self.assertEqual(self.ship.rect.centerx, 
-                        initial_center_x - self.ai_settings.ship_speed)
+def test_move_right(self):
+    initial_center_x = self.ship.rect.centerx # 记录初始中心x坐标
+    self.ship.moving_right = True # 设置向右移动标志为True
+    self.ship.update() # 更新飞船位置
+    self.assertEqual(self.ship.rect.centerx, 
+                    initial_center_x + self.ai_settings.ship_speed) # 检查飞船位置是否正确
 
-    def test_move_right(self):
-        initial_center_x = self.ship.rect.centerx
-        self.ship.moving_right = True
-        self.ship.update()
-        self.assertEqual(self.ship.rect.centerx, 
-                        initial_center_x + self.ai_settings.ship_speed)
+def tearDown(self):
+    pygame.quit() # 退出pygame
 
-    def tearDown(self):
-        pygame.quit()
 
 if __name__ == '__main__':
     unittest.main()
@@ -450,42 +449,41 @@ from scoreboard import Scoreboard
 from game_functions import update_bullets, fire_bullets, 
                             check_bullet_alien_collisions
 
-class TestShooting(unittest.TestCase):
+def setUp(self):
+    pygame.init()
+    self.screen = pygame.display.set_mode((1150, 800)) # 创建窗口
+    self.ai_settings = Setting() # 创建游戏设置实例
+    self.ship=Ship(self.ai_settings,self.screen) # 创建飞船实例
+    self.bullets = pygame.sprite.Group() # 创建子弹组
+    self.aliens = pygame.sprite.Group() # 创建外星人组
+    self.stats=GameStats(self.ai_settings) # 创建游戏状态实例
+    self.sb=Scoreboard(self.ai_settings,self.screen,self.stats) # 创建记分牌实例
 
-    def setUp(self):
-        pygame.init()
-        self.screen = pygame.display.set_mode((1150, 800))
-        self.ai_settings = Setting()
-        self.ship=Ship(self.ai_settings,self.screen) 
-        self.bullets = pygame.sprite.Group()
-        self.aliens = pygame.sprite.Group()
-        self.stats=GameStats(self.ai_settings)
-        self.sb=Scoreboard(self.ai_settings,self.screen,self.stats)
+def test_fire_bullets(self):
+    initial_bullet_count = len(self.bullets) # 记录初始子弹数
+    fire_bullets(self.ai_settings, self.screen, self.ship, self.bullets) # 发射子弹
+    self.assertEqual(len(self.bullets), initial_bullet_count + 1) # 检查子弹数是否增加
 
-    def test_fire_bullets(self):
-        initial_bullet_count = len(self.bullets)
-        fire_bullets(self.ai_settings, self.screen, self.ship, self.bullets)
-        self.assertEqual(len(self.bullets), initial_bullet_count + 1)
+def test_check_bullet_alien_collisions(self):
+    bullet = Bullet(self.ai_settings, self.screen, self.ship) # 创建子弹实例
+    self.bullets.add(bullet) # 将子弹加入子弹组
+    alien = Alien(self.ai_settings, self.screen) # 创建外星人实例
+    self.aliens.add(alien) # 将外星人加入外星人组
+    initial_alien_count = len(self.aliens) # 记录初始外星人数
+    check_bullet_alien_collisions(self.ai_settings, self.screen, self.stats, 
+                                    self.sb, self.ship, self.aliens, self.bullets) # 检查子弹和外星人的碰撞
+    self.assertEqual(len(self.aliens), initial_alien_count ) # 检查外星人数是否减少
 
-    def test_check_bullet_alien_collisions(self):
-        bullet = Bullet(self.ai_settings, self.screen, self.ship)
-        self.bullets.add(bullet)
-        alien = Alien(self.ai_settings, self.screen)
-        self.aliens.add(alien)
-        initial_alien_count = len(self.aliens)
-        check_bullet_alien_collisions(self.ai_settings, self.screen, self.stats, 
-                                        self.sb, self.ship, self.aliens, self.bullets)
-        self.assertEqual(len(self.aliens), initial_alien_count )
+def test_update_bullets(self):
+    bullet = Bullet(self.ai_settings, self.screen, self.ship) # 创建子弹实例
+    self.bullets.add(bullet) # 将子弹加入子弹组
+    update_bullets(self.ai_settings, self.screen, self.stats, self.sb, 
+                    self.ship, self.aliens, self.bullets) # 更新子弹位置
+    self.assertEqual(len(self.bullets), 0) # 检查子弹数是否减少
 
-    def test_update_bullets(self):
-        bullet = Bullet(self.ai_settings, self.screen, self.ship)
-        self.bullets.add(bullet)
-        update_bullets(self.ai_settings, self.screen, self.stats, self.sb, 
-                        self.ship, self.aliens, self.bullets)
-        self.assertEqual(len(self.bullets), 0)
+def tearDown(self):
+    pygame.quit() # 退出pygame
 
-    def tearDown(self):
-        pygame.quit()
 
 if __name__ == '__main__':
     unittest.main()
