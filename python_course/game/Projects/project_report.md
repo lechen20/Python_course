@@ -346,13 +346,91 @@ blitme()方法可以根据self.rect指定的位置将图像绘制到屏幕上
 
 ### 实现教材部分练习的功能
 
-#### 练习12-6将飞船放在屏幕左侧进行射击,并且可以上下移动功能
+#### 练习12-6将飞船放在屏幕左侧进行射击
 
-屏幕左侧进行射击功能已经实现    
-现在增加上下移动的功能，修改ship.py
+屏幕左侧进行射击功能     
+1. 修改ship.py
+```python
+#将每艘新飞船放在屏幕中央
+#self.rect.centerx=self.screen_rect.centerx
+#self.rect.bottom=self.screen_rect.bottom
+        
+# 使飞船出现在屏幕左侧
+self.rect.midleft = self.screen_rect.midleft
+
+```
+
+2. 修改game_functions.py
+```python
+def update_bullets(ai_settings,screen,stats,sb,ship,aliens,bullets):
+    bullets.update()
+        #删除已经消失的子弹
+    for bullet in bullets.copy():
+        #if bullet.rect.bottom<=0:
+        ######################
+        if bullet.rect.right >= ship.screen_rect.right:
+            bullets.remove(bullet)
+        ######################
+```
+
+2. 修改settings.py(只改了子弹长宽)
+```python
+self.bullet_width=20
+self.bullet_height=5
+
+```
+
+4. 修改bullet.py
+```python
+
+class Bullet(Sprite):
+    #创建子弹对象
+    def __init__(self,ai_settings,screen,ship):
+        super().__init__()  #继承Sprite类
+        self.screen=screen
+        
+        #在（0，0）创建一个表示子弹的矩形。再设置正确的位置
+        self.rect=pygame.Rect(0,0,ai_settings.bullet_width,ai_settings.bullet_height)
+        self.rect.centerx=ship.rect.centerx
+        self.rect.top=ship.rect.top  #实现效果为子弹从飞船顶部射出
+
+       ############################ 
+        #存储用小数表示的子弹的位置
+        #self.y=float(self.rect.y)
+        self.x=float(self.rect.x)
+        ############################
+        self.color=ai_settings.bullet_color
+        self.speed=ai_settings.bullet_speed
+    
+    
+    """
+    #管理子弹位置
+    def update(self):
+        self.y -=self.speed #向上移动子弹
+        self.rect.y=self.y #更新表示子弹的rect的位置
+    """ 
+    #########################################
+    def update(self):
+        """ 向右移动子弹 """
+        # 更新表示子弹位置的小数值
+        self.x += self.speed
+        # 更新表示子弹的rect的位置
+        self.rect.x = self.x
+    ############################################
+    
+    #屏幕上绘制子弹
+    def draw_bullet(self):
+        pygame.draw.rect(self.screen,self.color,self.rect)
+
+```
+
+
+
+现在增加上下移动的功能         
+修改ship.py
 
 ```python
-def update(self):
+    def update(self):
         
         if self.moving_right and self.rect.right<self.screen_rect.right:
             self.center += self.ai_settings.ship_speed
@@ -367,8 +445,15 @@ def update(self):
         self.rect.centerx=self.center
         self.rect.centery = self.centery
 
+
+    def center_ship(self):
+        #让飞船在屏幕上居中
+        #self.center=self.screen_rect.centerx
+        self.rect.midleft = self.screen_rect.midleft
+        
+
 ```
-修改 game_functions
+修改 game_functions.py
 ```python
 
 #响应按键函数
@@ -377,10 +462,12 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
         ship.moving_right=True  #玩家按下右键时，将标志设为true
     elif event.key == pygame.K_LEFT:
         ship.moving_left=True   #玩家按下左键时，将标志设为true
+    ####################################
     elif event.key == pygame.K_UP:
         ship.moving_up = True
     elif event.key == pygame.K_DOWN:
         ship.moving_down = True
+    ################################
     elif event.key == pygame.K_SPACE:
         fire_bullets(ai_settings,screen,ship,bullets)
     elif event.key == pygame.K_q: #玩家按下q键时,游戏结束
@@ -400,7 +487,8 @@ def check_keyup_events(event,ship):
 ```
 
 效果：
-![Img](./FILES/project_report.md/img-20231122161335.png)
+![Img](./FILES/project_report.md/img-20231122195502.png)
+
 
 
 #### 练习13-2在游戏背景中随机位置绘制星星
@@ -415,6 +503,47 @@ random_number = randint(-10, 10)
 
 
 #### 练习14-5 将游戏中得到的最高分保存到文件中
+
+这里需要新建一个"score.txt"文件, 每次开始游戏循环前都在这个文件读取最高分.
+
+1. 修改alien_invasion.py
+
+```python
+while True:
+        #添加这段
+		filename = 'score.txt'
+        high_score_str = str(stats.high_score)
+		with open(filename, 'w') as file_object:
+			file_object.write(high_score_str)
+
+```
+2. 修改game_stats.py
+```python
+class GameStats():
+	#跟踪游戏的统计信息
+
+	def __init__(self, ai_settings):
+		#初始化统计信息
+		self.ai_settings = ai_settings
+		self.reset_stats()
+		#游戏刚启动时处于静止状态
+		self.game_active = False
+        ##################
+        #添加这段
+		with open('score.txt') as file_object:
+			hs = file_object.read()
+		self.high_score = int(float(hs))
+        ###################
+	def reset_stats(self):
+		"""初始化在游戏运行期间可能变化的统计信息"""
+		self.score = 0
+		self.ships_left = self.ai_settings.ship_limit
+		self.level = 1
+
+```
+效果：
+![Img](./FILES/project_report.md/img-20231123000453.png)
+
 
 
 ## 第3章 软件测试
@@ -670,3 +799,4 @@ class TestScoreboard(unittest.TestCase):
     通过学习编写《外星人入侵》这个项目游戏，我收获了许多。首先，我对 Python 语言的应用有了更深入的理解，学会了如何使用 Pygame 库进行游戏开发，包括处理用户输入、图形绘制、碰撞检测等方面的知识。其次，我学会了如何组织和管理一个小型项目，包括代码结构的设计、模块化开发、调试和测试等方面的技能。在今后的学习中，我将继续深入学习游戏开发领域的知识，包括游戏设计原理、图形渲染技术等方面的内容，以期能够开发出更加复杂和精彩的游戏作品。同时，我也将继续学习 Python 编程语言的高级特性和应用领域，不断提升自己的编程水平和实践能力。这次项目的学习经历将成为我未来学习和发展的宝贵经验。
 
 ## 参考文献
+
