@@ -13,6 +13,10 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
         ship.moving_right=True  #玩家按下右键时，将标志设为true
     elif event.key == pygame.K_LEFT:
         ship.moving_left=True   #玩家按下左键时，将标志设为true
+    elif event.key == pygame.K_UP:
+        ship.moving_up = True
+    elif event.key == pygame.K_DOWN:
+        ship.moving_down = True
     elif event.key == pygame.K_SPACE:
         fire_bullets(ai_settings,screen,ship,bullets)
     elif event.key == pygame.K_q: #玩家按下q键时,游戏结束
@@ -24,6 +28,11 @@ def check_keyup_events(event,ship):
         ship.moving_right=False   #松开重设为false
     elif event.key == pygame.K_LEFT:
         ship.moving_left=False
+    elif event.key == pygame.K_UP:
+        ship.moving_up = False
+    elif event.key == pygame.K_DOWN:
+        ship.moving_down = False
+
 
 def check_events(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets): #玩家按右键时，飞船向右移动
     for event in pygame.event.get():
