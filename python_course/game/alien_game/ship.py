@@ -18,11 +18,14 @@ class Ship(Sprite):
         
         #在飞船的属性centerx中存储小数值
         self.center=float(self.rect.centerx)
+        self.centery=float(self.rect.centery)
         
         #移动标志,玩家按下右键时，将标志设为true，
         #松开重设为false
         self.moving_right=False
         self.moving_left=False
+        self.moving_up=False
+        self.moving_down=False
     
     #方法update()检查标志状态，标志为true时调整飞船位置
     def update(self):
@@ -31,10 +34,14 @@ class Ship(Sprite):
             self.center += self.ai_settings.ship_speed
         if self.moving_left and self.rect.left>0:
             self.center -= self.ai_settings.ship_speed
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+            self.centery += self.ai_settings.ship_speed
+        if self.moving_up and self.rect.top > 0 :
+            self.centery -= self.ai_settings.ship_speed
         
         #根据self.center更新rect对象
         self.rect.centerx=self.center
-        
+        self.rect.centery = self.centery
         
     def blitme(self):
         #在指定位置绘制飞船
