@@ -346,11 +346,70 @@ blitme()方法可以根据self.rect指定的位置将图像绘制到屏幕上
 
 ### 实现教材部分练习的功能
 
-#### 练习12-6将飞船放在屏幕左侧进行射击功能
+#### 练习12-6将飞船放在屏幕左侧进行射击,并且可以上下移动功能
+
+屏幕左侧进行射击功能已经实现    
+现在增加上下移动的功能，修改ship.py
+
+```python
+def update(self):
+        
+        if self.moving_right and self.rect.right<self.screen_rect.right:
+            self.center += self.ai_settings.ship_speed
+        if self.moving_left and self.rect.left>0:
+            self.center -= self.ai_settings.ship_speed
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+            self.centery += self.ai_settings.ship_speed
+        if self.moving_up and self.rect.top > 0 :
+            self.centery -= self.ai_settings.ship_speed
+        
+        #根据self.center更新rect对象
+        self.rect.centerx=self.center
+        self.rect.centery = self.centery
+
+```
+修改 game_functions
+```python
+
+#响应按键函数
+def check_keydown_events(event,ai_settings,screen,ship,bullets):
+    if event.key == pygame.K_RIGHT:
+        ship.moving_right=True  #玩家按下右键时，将标志设为true
+    elif event.key == pygame.K_LEFT:
+        ship.moving_left=True   #玩家按下左键时，将标志设为true
+    elif event.key == pygame.K_UP:
+        ship.moving_up = True
+    elif event.key == pygame.K_DOWN:
+        ship.moving_down = True
+    elif event.key == pygame.K_SPACE:
+        fire_bullets(ai_settings,screen,ship,bullets)
+    elif event.key == pygame.K_q: #玩家按下q键时,游戏结束
+        sys.exit()
+
+#响应松开函数
+def check_keyup_events(event,ship):
+    if event.key == pygame.K_RIGHT:
+        ship.moving_right=False   #松开重设为false
+    elif event.key == pygame.K_LEFT:
+        ship.moving_left=False
+    elif event.key == pygame.K_UP:
+        ship.moving_up = False
+    elif event.key == pygame.K_DOWN:
+        ship.moving_down = False
+
+```
+
+效果：
+![Img](./FILES/project_report.md/img-20231122161335.png)
 
 
 #### 练习13-2在游戏背景中随机位置绘制星星
-
+代码方式与外星人的一样，不同的是此处用到了随机位置要用到随机函数：
+```python
+from random import randint     
+random_number = randint(-10, 10)
+```
+代码文件：starsky.py 和 star.py
 效果：
 ![Img](./FILES/project_report.md/img-20231122144134.png)
 
