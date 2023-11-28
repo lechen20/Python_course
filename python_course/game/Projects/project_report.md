@@ -14,6 +14,8 @@
 
 ## 摘要
 
+本项目实现了一个简单的射击类游戏，玩家可以控制飞船在屏幕底部移动，并发射子弹消灭从屏幕顶部下落的外星人。
+本文对游戏的设计，方法，模块，主要功能进行解释，对相关功能进行了测试，完成了课后附加功能，最后还对项目的改进进行了设想。
 
 关键词：外星人入侵, pygame, alien, bullet, button, game_functions,    
         scoreboard, settings, ship, game_stats    
