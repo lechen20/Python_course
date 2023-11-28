@@ -131,7 +131,7 @@ pygame.Rect.colliderect(rect1,rect2)
 
 
 ### 项目功能
-
+    项目代码：https://github.com/lechen20/python_course/tree/main/python_course/game/alien_game
 #### 创建游戏窗口
 
     pygame.init()初始化背景设置
