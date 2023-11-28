@@ -517,7 +517,9 @@ while True:
 			file_object.write(high_score_str)
 
 ```
+
 2. 修改game_stats.py
+
 ```python
 class GameStats():
 	#跟踪游戏的统计信息
@@ -555,43 +557,7 @@ class GameStats():
     在每个测试方法中，我们首先初始化pygame和创建一个屏幕实例，然后创建一个飞船实例。
     接着我们设置飞船的移动标志为True，并调用飞船的update方法来模拟飞船的移动。
     最后使用断言来验证飞船的位置是否正确地发生了变化。
-
-```python
-import unittest
-import pygame
-from ship import Ship
-from settings import Setting
-
-def setUp(self):
-    pygame.init()
-    self.ai_settings = Setting() # 创建游戏设置实例
-    self.screen = pygame.display.set_mode((self.ai_settings.screen_width, 
-                                            self.ai_settings.screen_height)) # 创建窗口
-    self.ship = Ship(self.ai_settings, self.screen) # 创建飞船实例
-
-def test_move_left(self):
-    initial_center_x = self.ship.rect.centerx # 记录初始中心x坐标
-    self.ship.moving_left = True # 设置向左移动标志为True
-    self.ship.update() # 更新飞船位置
-    self.assertEqual(self.ship.rect.centerx, 
-                    initial_center_x - self.ai_settings.ship_speed) # 检查飞船位置是否正确
-
-def test_move_right(self):
-    initial_center_x = self.ship.rect.centerx # 记录初始中心x坐标
-    self.ship.moving_right = True # 设置向右移动标志为True
-    self.ship.update() # 更新飞船位置
-    self.assertEqual(self.ship.rect.centerx, 
-                    initial_center_x + self.ai_settings.ship_speed) # 检查飞船位置是否正确
-
-def tearDown(self):
-    pygame.quit() # 退出pygame
-
-
-if __name__ == '__main__':
-    unittest.main()
-
-
-```
+    代码：https://github.com/lechen20/python_course/tree/main/python_course/game/alien_game/代码测试/1.py
 
 测试结果：
 ![Img](./FILES/project_report.md/img-20231121154142.png)
@@ -603,38 +569,7 @@ if __name__ == '__main__':
     然后我们编写了一个测试用例 test_update() 来测试外星人的 update() 方法。
     在测试用例中，我们首先获取外星人的初始 x 坐标，然后调用 update() 方法，
     最后再获取外星人的新 x 坐标，并使用 assertNotEqual() 函数来检查新位置是否与旧位置不同。
-
-```python
-
-import unittest
-from alien import Alien
-
-class TestAlien(unittest.TestCase):
-    def setUp(self):
-        # 创建一个屏幕对象，这里可以使用模拟的屏幕对象
-        self.screen = MockScreen()
-        self.ai_settings = MockSettings()
-        self.alien = Alien(self.ai_settings, self.screen)
-
-    def test_update(self):
-        initial_x = self.alien.x
-        self.alien.update()
-        new_x = self.alien.x
-        self.assertNotEqual(initial_x, new_x)
-
-class MockScreen:
-    def get_rect(self):
-        return MockRect()
-
-class MockSettings:
-    alien_speed = 1
-    fleet_direction = 1
-
-class MockRect:
-    right = 100
-    left = 0
-
-```
+    代码：https://github.com/lechen20/python_course/tree/main/python_course/game/alien_game/代码测试/2.py
 测试结果：
 ![Alt text](image-6.png)
 
@@ -645,61 +580,8 @@ class MockRect:
     在每个测试方法中，我们首先初始化pygame和创建屏幕、飞船、子弹和外星人实例。
     然后我们调用相应的方法来模拟射击动作、子弹和外星人的碰撞以及子弹的更新。
     最后使用断言来验证相应的功能是否正确地发生了变化。
+    代码：https://github.com/lechen20/python_course/tree/main/python_course/game/alien_game/代码测试/3.py
 
-
-```python
-
-import unittest
-import pygame
-from ship import Ship
-from bullet import Bullet
-from alien import Alien
-from settings import Setting 
-from game_stats import GameStats
-from scoreboard import Scoreboard
-from game_functions import update_bullets, fire_bullets, 
-                            check_bullet_alien_collisions
-
-def setUp(self):
-    pygame.init()
-    self.screen = pygame.display.set_mode((1150, 800)) # 创建窗口
-    self.ai_settings = Setting() # 创建游戏设置实例
-    self.ship=Ship(self.ai_settings,self.screen) # 创建飞船实例
-    self.bullets = pygame.sprite.Group() # 创建子弹组
-    self.aliens = pygame.sprite.Group() # 创建外星人组
-    self.stats=GameStats(self.ai_settings) # 创建游戏状态实例
-    self.sb=Scoreboard(self.ai_settings,self.screen,self.stats) # 创建记分牌实例
-
-def test_fire_bullets(self):
-    initial_bullet_count = len(self.bullets) # 记录初始子弹数
-    fire_bullets(self.ai_settings, self.screen, self.ship, self.bullets) # 发射子弹
-    self.assertEqual(len(self.bullets), initial_bullet_count + 1) # 检查子弹数是否增加
-
-def test_check_bullet_alien_collisions(self):
-    bullet = Bullet(self.ai_settings, self.screen, self.ship) # 创建子弹实例
-    self.bullets.add(bullet) # 将子弹加入子弹组
-    alien = Alien(self.ai_settings, self.screen) # 创建外星人实例
-    self.aliens.add(alien) # 将外星人加入外星人组
-    initial_alien_count = len(self.aliens) # 记录初始外星人数
-    check_bullet_alien_collisions(self.ai_settings, self.screen, self.stats, 
-                                    self.sb, self.ship, self.aliens, self.bullets) # 检查子弹和外星人的碰撞
-    self.assertEqual(len(self.aliens), initial_alien_count ) # 检查外星人数是否减少
-
-def test_update_bullets(self):
-    bullet = Bullet(self.ai_settings, self.screen, self.ship) # 创建子弹实例
-    self.bullets.add(bullet) # 将子弹加入子弹组
-    update_bullets(self.ai_settings, self.screen, self.stats, self.sb, 
-                    self.ship, self.aliens, self.bullets) # 更新子弹位置
-    self.assertEqual(len(self.bullets), 0) # 检查子弹数是否减少
-
-def tearDown(self):
-    pygame.quit() # 退出pygame
-
-
-if __name__ == '__main__':
-    unittest.main()
-
-```
 测试结果：
 ![Img](./FILES/project_report.md/img-20231121161818.png)
 
@@ -709,61 +591,8 @@ if __name__ == '__main__':
     第一个测试方法 test_defeat_alien_score_calculation() 模拟了击败外星人事件，检查得分是否增加。
     第二个测试方法 test_level_calculation() 模拟了得分达到一定值时，等级是否增加。
     第三个测试方法 test_high_score_calculation() 模拟了得分超过历史最高得分时，最高得分是否会更新。
+    代码：https://github.com/lechen20/python_course/tree/main/python_course/game/alien_game/代码测试/4.py
 
-```python
-
-import pygame
-import pygame.font
-import unittest
-from ship import Ship
-from bullet import Bullet
-from alien import Alien
-from scoreboard import Scoreboard
-from settings import Setting
-from game_stats import GameStats
-from game_functions import check_bullet_alien_collisions,check_high_score
-
-class TestScoreboard(unittest.TestCase):
-    def setUp(self):
-        # 创建一个屏幕对象，这里可以使用模拟的屏幕对象
-        pygame.init()
-        pygame.font.init()
-        #self.font = pygame.font.SysFont("comicsansms", 50)
-        self.screen = pygame.display.set_mode((1150, 800))
-        self.ai_settings = Setting()
-        self.stats = GameStats(self.ai_settings)
-        self.scoreboard = Scoreboard(self.ai_settings, self.screen, self.stats)
-        self.ship=Ship(self.ai_settings,self.screen)  #绘制一艘飞船
-        self.bullets = pygame.sprite.Group()
-        self.aliens = pygame.sprite.Group()
-    
-
-    def test_defeat_alien_score_calculation(self):
-        # 模拟击败外星人事件，得分应该增加
-        self.stats.score = 1500    #设置当前得分为1500
-        collisions=pygame.sprite.groupcollide(self.bullets,self.aliens,True,True)
-        check_bullet_alien_collisions(self.ai_settings,self.screen,self.stats,
-                                    self.scoreboard,self.ship,self.aliens,self.bullets)  # 模拟击败外星人事件
-        if len(self.aliens) ==0:               #没有外星人时，得分不变
-            self.assertTrue(self.stats.score == 1500 )
-        if collisions:                         #发生碰撞时
-            self.assertTrue(self.stats.score > 1500 )
-
-    def test_level_calculation(self):
-        # 模拟得分达到一定值时，等级应该增加
-        self.stats.score = 1500  # 设置当前得分为1500
-        check_bullet_alien_collisions(self.ai_settings,self.screen,self.stats,
-                                    self.scoreboard,self.ship,self.aliens,self.bullets)  # 重新计算等级
-        self.assertEqual(self.stats.level, 2)  # 预期等级为2
-
-    def test_high_score_calculation(self):
-        # 模拟得分超过历史最高得分时，最高得分应该更新
-        self.stats.high_score = 1000 # 设置历史最高得分为1000
-        self.stats.score = 1500 # 设置当前得分为1500
-        check_high_score(self.stats,self.scoreboard)
-        self.assertEqual(self.stats.high_score, 1500)  # 预期最高得分更新为1500
-
-```
 测试结果：
 ![Img](./FILES/project_report.md/img-20231121183124.png)
 
@@ -797,6 +626,3 @@ class TestScoreboard(unittest.TestCase):
 #### 收获
 
 通过学习编写《外星人入侵》这个项目游戏，我收获了许多。首先，我对 Python 语言的应用有了更深入的理解，学会了如何使用 Pygame 库进行游戏开发，包括处理用户输入、图形绘制、碰撞检测等方面的知识。其次，我学会了如何组织和管理一个小型项目，包括代码结构的设计、模块化开发、调试和测试等方面的技能。在今后的学习中，我将继续深入学习游戏开发领域的知识，包括游戏设计原理、图形渲染技术等方面的内容，以期能够开发出更加复杂和精彩的游戏作品。同时，我也将继续学习 Python 编程语言的高级特性和应用领域，不断提升自己的编程水平和实践能力。这次项目的学习经历将成为我未来学习和发展的宝贵经验。
-
-## 参考文献
-
